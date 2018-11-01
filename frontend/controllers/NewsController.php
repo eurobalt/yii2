@@ -4,7 +4,6 @@ namespace frontend\controllers;
 
 use frontend\models\News;
 use yii\web\Controller;
-use Yii;
 use yii\web\NotFoundHttpException;
 
 class NewsController extends Controller
