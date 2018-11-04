@@ -12,12 +12,32 @@ use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
+use frontend\models\Subscribe;
 
 /**
  * Site controller
  */
 class SiteController extends Controller
 {
+    public $enableCsrfValidation = false;
+
+    public function actionSubscribe()
+    {
+        $formData = Yii::$app->request->post();
+        $model = new Subscribe();
+        $model->username = $formData['username'];
+        $model->email    = $formData['email'];
+        $model->message  = $formData['message'];
+
+        if ($model->validate() && $model->send($model)) {
+                Yii::$app->session->setFlash('subscribe', 'Форма отправлена!');
+                return $this->redirect(['subscribe']);
+        }
+        
+
+
+        return $this->render('subscribe');
+    }
     /**
      * {@inheritdoc}
      */
