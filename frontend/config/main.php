@@ -13,9 +13,11 @@ return [
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
     'components' => [
-        'StringHelper' => [
-            'class' => 'frontend\components\StringHelper'
+
+        'stringHelper' => [
+          'class' => 'frontend\components\StringHelper'
         ],
+        
         'request' => [
             'csrfParam' => '_csrf-frontend',
         ],
@@ -53,16 +55,21 @@ return [
           
             'rules' => [
 
-                // NewsController
-                'novosti' => 'news/index',
-                'novosti/<id:\d+>' => 'news/article',
-
                 // SiteController
-                'subscribe' => 'site/subscribe',
                 '' => 'site/index',
+                'subscribe' => 'site/subscribe',
+
+
+                // NewsController
+                'news' => 'news/index',
+                'news/<id:\d+>' => 'news/page',
+
+
+             
+               
             ],
         ],
-        
+          
       
         'request' => [
             'baseUrl' => ''

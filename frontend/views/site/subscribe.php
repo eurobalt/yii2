@@ -1,17 +1,24 @@
 <?php
-use Yii;
-if(Yii::$app->session->hasFlash('subscribe')):?>
-    <div class="info">
-      <?php echo Yii::$app->session->getFlash('subscribe'); ?>
-    </div>
-<?php endif; ?>
+use yii;
+if (yii::$app->session->hasFlash('delivered')):
+    echo yii::$app->session->getFlash('delivered');
+endif;
+?>
 
-<form method="post">
-    <input type="email" placeholder="Емайл" name="email" />
-    <br><br>
-    <input type="text" placeholder="Имя" name ="username" />
-    <br><br>
-    <textarea name="message" placeholder="Сообщение..."></textarea>
-    <br><br>
-    <input type="submit" value="Отправить" />
+<form method ="post">
+    <input type="email" name = "email" placeholder = "Емайл.." />
+    <br> <br>
+    <input type="tel" name = "tel" placeholder = "Телефон.." />
+    <br> <br>
+    <input type="submit"/>
 </form>
+
+<?php
+if (isset($errors) && is_array($errors)):
+   foreach ($errors as $errors):
+    foreach ($errors as $result):
+    echo $result. "<br>";
+    endforeach;
+   endforeach;
+endif;
+

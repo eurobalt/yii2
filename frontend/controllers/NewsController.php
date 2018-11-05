@@ -2,36 +2,29 @@
 
 namespace frontend\controllers;
 
-use frontend\models\News;
 use yii\web\Controller;
-use yii\web\NotFoundHttpException;
+use frontend\models\Articles;
 
+/**
+ * News and Articles
+ *
+ * @author 7able
+ */
 class NewsController extends Controller
 {
-
     public function actionIndex()
     {
-        $items = News::getList();
-        return $this->render('index',
-                [
-                'items' => $items
+        $newsItems = Articles::getNews();
+        return $this->render('index',[
+            'newsItems' => $newsItems
         ]);
     }
 
-    public function actionView($id)
+    public function actionPage($id)
     {
-      
-       
-        $item = News::getView($id);
-        if ($item) {
-        return $this->render('view',
-                [
-                'item' => $item
+        $article = Articles::getArticle($id);
+        return $this->render('page',[
+            'article' => $article,
         ]);
-        }
-         else  {
-           throw new NotFoundHttpException;
-        }
-     
     }
 }

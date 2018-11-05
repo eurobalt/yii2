@@ -23,21 +23,31 @@ class SiteController extends Controller
 
     public function actionSubscribe()
     {
-        $formData = Yii::$app->request->post();
-        $model = new Subscribe();
-        $model->username = $formData['username'];
-        $model->email    = $formData['email'];
-        $model->message  = $formData['message'];
+        $errors       = false;
+        $formPost     = Yii::$app->request->post();
+        $model        = new Subscribe();
+        $model->email = $formPost['email'];
+        $model->tel   = $formPost['tel'];
 
-        if ($model->validate() && $model->send($model)) {
-                Yii::$app->session->setFlash('subscribe', 'Форма отправлена!');
+        if ($formPost):
+
+
+            if ($model->validate() && $model->send($model)) {
+                Yii::$app->session->setFlash('delivered', 'Форма отправлена!');
                 return $this->redirect(['subscribe']);
-        }
+            }
+
+            if ($model->hasErrors()) {
+                $errors = $model->getErrors();
+            }
         
-
-
-        return $this->render('subscribe');
+  endif;
+        return $this->render('subscribe',
+                [
+                'errors' => $errors
+        ]);
     }
+
     /**
      * {@inheritdoc}
      */
@@ -232,4 +242,5 @@ class SiteController extends Controller
             'model' => $model,
         ]);
     }
+    
 }
